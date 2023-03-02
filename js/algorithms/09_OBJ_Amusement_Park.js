@@ -39,20 +39,22 @@ function ticketStatus(tickets, ticketIdentifier) {
 //   )
 // );
 
-// TODO: refactor the faunction below 👇
-// Retrieve the value for a given ticketId with bracket notation like in the previous task.
-// No if-statement is needed to solve this task.
-// Use the nullish coalescing operator ?? instead.
-function simpleTicketStatus(tickets, ticketIdentifier) {
-  if (
-    tickets[ticketIdentifier] != null ||
-    tickets[ticketIdentifier] != undefined
-  ) {
-    return tickets[ticketIdentifier];
-  }
-
-  return "invalid ticket !!!";
+// The code below doesn't work on nodejs v12 or below.. but it's right!
+function simpleTicketStatus(tickets, ticketIdentifier){
+  return tickets[ticketIdentifier] ?? 'invalid ticket !!!';
 }
+
+// function simpleTicketStatus(tickets, ticketIdentifier) {
+//   if (
+//     tickets[ticketIdentifier] != null ||
+//     tickets[ticketIdentifier] != undefined
+//   ) {
+//     return tickets[ticketIdentifier];
+//   }
+
+//   return "invalid ticket !!!";
+// }
+
 // console.log(
 //   simpleTicketStatus(
 //     {
@@ -63,4 +65,22 @@ function simpleTicketStatus(tickets, ticketIdentifier) {
 //   )
 // );
 
-function gtcVersion() {}
+function gtcVersion(visitor) {
+  if (visitor.hasOwnProperty("gtc")) {
+    return visitor.gtc["version"];
+  }
+
+  return undefined;
+}
+
+// console.log(
+//   gtcVersion({
+//     name: "Zohar Pekkanen",
+//     age: 28,
+//     ticketId: "8DGM3163",
+//     gtc: {
+//       signed: true,
+//       version: "4.2",
+//     },
+//   })
+// );
