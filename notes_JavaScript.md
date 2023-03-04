@@ -214,3 +214,70 @@ Object.values(obj);
 Object.entries(obj);
 // => [ [ 'name', 'Ali' ], [ 'age', 65 ] ]
 ```
+## Null and Undefined
+
+### Null
+
+Empty value for any type.
+
+> To check whether a variable is null, the strict equality operator `===` must be used. Although null is a primitive value, the `typeof` operator "wrongly" returns `object` for historic reasons. That means it cannot be used by itself to check whether a variable is null.
+```javascript
+let name = null;
+
+name === null;
+// => true
+
+// Pitfall:
+typeof name;
+// => 'object'
+```
+
+### Undefined
+
+A variable that has not been assigned a value is of type _undefined_. That means while null represents an empty value (but still a value), _undefined_ represents the total absence of a value.
+
+- If a variable is declared **without** a value (initialization), it is _undefined_.
+- If you try to access a value for a **non-existing key** in an object, you get _undefined_.
+- If a function **does not return a value**, the result is _undefined_.
+- If an **argument is not passed** to a function, it is _undefined_, unless that argument has a default value.
+
+```javascript
+let name;
+console.log(name);
+// => undefined
+
+let obj = { greeting: 'hello world' };
+console.log(obj.missingKey);
+// => undefined
+
+function returnNothing() {
+  return;
+}
+console.log(returnNothing());
+// => undefined
+```
+
+To check if a variable is undefined, use the strict equality operator `===` or `typeof`
+```javascript
+let name;
+
+name === undefined;
+// => true
+
+typeof name === 'undefined';
+// => true
+```
+
+### Nullish Coalescing
+
+The nullish coalescing operator `??` returns the right-hand side operand **only when the left-hand side operand is __null__ or _undefined_**. Otherwise, the left-hand side operand is returned.
+
+```javascript
+let amount = null;
+amount = amount ?? 1;
+// => 1
+
+amount = 0;
+amount = amount ?? 1;
+// => 0
+```
