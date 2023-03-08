@@ -214,6 +214,62 @@ Object.values(obj);
 Object.entries(obj);
 // => [ [ 'name', 'Ali' ], [ 'age', 65 ] ]
 ```
+
+## Functions
+
+### 'Commom' function declaration
+```javascript
+function addTwoNumbers(number1, number2){
+  return number1 + number2
+}
+```
+### Arrow Function
+```javascript
+// function keyword removed and => added
+const addTwoNumbers = (number1, number2) => {
+  return number1 + number2
+};
+```
+If the function body contains only a return statement, the `{}` and `return` can be omitted.
+```javascript
+const addUpTwoNumbers = (num1, num2) => { return num1 + num2 };
+
+// can be shortened to
+const addUpTwoNumbers = (num1, num2) => num1 + num2;
+// braces {} and return removed
+// ===================================================
+// explicit return of object
+const addUpTwoNumbers = (num1, num2) => {
+  return { num1, num2 };
+};
+
+// implicit return of object
+const addUpTwoNumbers = (num1, num2) => ({ num1, num2 });
+```
+
+If the function has only one parameter, the `()` can be omitted.
+```javascript
+const addUpTwoNumbers = num1 => num1 + num2;
+```
+
+### Callback
+Callback function are functions passed as arguments. In other words, a function that calls another function (or more functions).
+```javascript
+const sideLength = 5;
+
+// Caller function takes a callback function
+function applySideLength(callback) {
+  return callback(sideLength);
+}
+
+// Callback must expect the possible argument from the calling function
+function areaOfSquare(side) {
+  return side * side;
+}
+
+applySideLength(areaOfSquare); // => 25
+```
+
 ## Null and Undefined
 
 ### Null
