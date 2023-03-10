@@ -10,20 +10,25 @@ function buildDiamond(string $inputLetter){
     // OK: Find its position on alphabet
     $letterPositon = strpos($alphabet, $letter) + 1;
 
-    $pastLetters = null;
+    // OK: Capture the letters that came before and keep it into an array
+    $pastLetters = array();
     $alphabetArray = str_split($alphabet);
-    // Capture the letters that came before and keep it into an array
-    for ($counter = 0; $counter < sizeof($alphabetArray[$letterPositon - 1]); $counter++) { 
-        $pastLetters = $pastLetters . $alphabetArray[$letterPositon];    
+    for ($counter = 0; $counter < $letterPositon - 1; $counter++) { 
+        $pastLetters[$counter] = $alphabetArray[$counter];
     }
 
-    return $pastLetters;
+    // OK: Copy the array above, but invert the letters => see ReverseString.php
+    $reversedPastLetters = array_reverse($pastLetters);
+
+    // OK: Mount an array => [pastLetters, letter, reversedPastLetters]
+    $result = array_merge((array)$pastLetters, (array)$letter, (array)$reversedPastLetters);
     
-    // Copy the array below, but invert the letters => see ReverseString.php
-    // Mount an array => [lettersBefore, inputLetter, lettersBeforeInverted]
+    foreach ($result as $value) {
+        echo $value . PHP_EOL;
+    }
 
     // OK: Get the horizontal length of the diamond => (letterPosition * 2) - 1
-    // $horizontalLength = ($letterPositon * 2) - 1;
+    $horizontalLength = ($letterPositon * 2) - 1;
 
     // See how to make blank spaces (??)
     // $blankSpaces = array();
