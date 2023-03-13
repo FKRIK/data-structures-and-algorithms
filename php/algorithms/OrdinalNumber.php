@@ -4,7 +4,13 @@ function toOrdinal(int $number){
     $numberArray = str_split($number);
     
     if($numberArray[0] == 1 && $numberArray[1] > 4){
-        
+        $result = $number . "th";
+    }
+
+    for($counter = 0; $counter < 9; $counter++){
+        if($numberArray[$counter] == $counter){
+            $result = $number . "th";
+        }
     }
 
     switch ($numberArray[count($numberArray ) - 1]) {
@@ -28,7 +34,7 @@ function toOrdinal(int $number){
             break;
     }
 
-    return $result . PHP_EOL;
+    return $result;
 
     // print_r(array_values($numberArray));
     // var_dump($numberArray[0]);
