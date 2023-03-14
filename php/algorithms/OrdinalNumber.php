@@ -1,33 +1,35 @@
 <?php
 
+function lastDigit(int $num){
+    return $num % 10;
+}
+
+
 function toOrdinal(int $number){
-    $numberArray = str_split($number);
-    
-    if($numberArray[0] == 1 && $numberArray[1] > 4){
-        $result = $number . "th";
+    if($number == 0){
+        return "$number";
+    }
+    $lastNumber = lastDigit($number);
+
+    if($number > 10 && $number < 20){
+        return $number . "th";
     }
 
-    for($counter = 0; $counter < 9; $counter++){
-        if($numberArray[$counter] == $counter){
+    switch ($lastNumber) {
+        case 0:
             $result = $number . "th";
-        }
-    }
-
-    switch ($numberArray[count($numberArray ) - 1]) {
-        case "0":
-            $result = (string) $number;
             break;
-
-        case '1':
+        case 1:
             $result = $number . "st";
             break;
 
-        case '2':
+        case 2:
             $result = $number . "nd";
             break;
 
-        case '3':
+        case 3:
             $result = $number . "rd";
+            break;
         
         default:
             $result = $number . "th";
@@ -35,9 +37,6 @@ function toOrdinal(int $number){
     }
 
     return $result;
-
-    // print_r(array_values($numberArray));
-    // var_dump($numberArray[0]);
 }
 
-echo toOrdinal(10);
+echo toOrdinal(0);
