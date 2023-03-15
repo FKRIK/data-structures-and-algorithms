@@ -5,11 +5,13 @@ $conta = new Account();
 
 // echo $conta->getAccNumber();
 // echo $conta->getSaldo();
-// $conta->depositar(400);
+$conta->depositar(400);
 // echo $conta->getSaldo();
 // echo $conta->getLimite();
 
-echo $conta->toString() . PHP_EOL;
+// $conta->bloquear();
+
+$conta->toString() . PHP_EOL;
 
 // number
 // 0

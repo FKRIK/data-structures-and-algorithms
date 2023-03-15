@@ -31,17 +31,22 @@ class Account implements IOperacoes{
     }
 
     public function isBlocked(){
-        if($this->bloqueada){
+        if($this->bloqueada == true){
             return "Bloqueada";
         }
         
         return "Desbloqueada";
     }
 
-    // Implementation of methodsx
+    // Implementation of methods
     public function depositar($value){
-        if($this->bloqueada){
-            echo "Sua conta está bloqueada. Desbloqueie-a para poder usá-la.";
+        // if($this->bloqueada == true){
+        //     echo "Sua conta está bloqueada. Desbloqueie-a para poder usá-la." . PHP_EOL;
+        //     return;
+        // }
+        
+        if($this->isBlocked()){
+            echo "Sua conta está bloqueada. Desbloqueie-a para poder usá-la." . PHP_EOL;
             return;
         }
         $this->saldo += $value;
@@ -49,12 +54,12 @@ class Account implements IOperacoes{
     }
 
     public function sacar($value){
-        if($this->bloqueada){
-            echo "Sua conta está bloqueada. Desbloqueie-a para poder usá-la.";
+        if($this->isBlocked()){
+            echo "Sua conta está bloqueada. Desbloqueie-a para poder usá-la." . PHP_EOL;
             return;
         }
         if($this->saldo < $value){
-            echo "Você não tem saldo suficiente para fazer este saque.";
+            echo "Você não tem saldo suficiente para fazer este saque." . PHP_EOL;
             return;
         }
 
@@ -67,26 +72,43 @@ class Account implements IOperacoes{
     }
 
     public function bloquear(){
+        if($this->isBlocked()){
+            echo "Sua conta já está bloqueada" . PHP_EOL;
+            return;
+        }
         $this->bloqueada = true;
+        return;
+    }
+
+    public function desbloquear(){
+        if(!$this->bloqueada == true){
+            echo "Sua conta já esta desbloqueda" . PHP_EOL;
+            return;
+        }
+        $this->bloqueada = false;
         return;
     }
 
     public function alterarLimite(){
         if($this->bloqueada){
-            echo "Sua conta está bloqueada. Desbloqueie-a para poder usá-la.";
+            echo "Sua conta está bloqueada. Desbloqueie-a para poder usá-la." . PHP_EOL;
             return;
         }
 
-        if($this->getSaldo() == 0)
+        if($this->getSaldo() == 0){
+
+        }
     }
 
     // toString
     public function toString(){
-        return 
+        echo 
           "Olá! o número da sua conta é " . $this->getAccNumber() . ". \n"
         . "O saldo atual é de " . $this->getSaldo() . ". \n"
         . "O limite atual é de " . $this->getLimite() . ". \n"
-        . "Sua conta está " . strtolower($this->isBlocked());
+        . "Sua conta está " . strtolower($this->isBlocked()) . PHP_EOL;
+        
+        return ;
     }
 
 }
