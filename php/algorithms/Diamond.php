@@ -1,55 +1,62 @@
-<?php 
+<?php
 
-function buildDiamond(string $inputLetter){
-    $inputAlphabet = "abcdefghijklmnopqrstuvwxyz";
-    $alphabet = strtoupper($inputAlphabet);
+function buildDiamond(string $inputLetter)
+{
+    $letter = strtoupper($inputLetter);
     // OK: Capture input letter
     // OK: Convert to upper
-    $letter = strtoupper($inputLetter);
 
-    // OK: Find its position on alphabet
-    $letterPositon = strpos($alphabet, $letter) + 1;
-
+    $letters = range('A', $letter);
     // OK: Capture the letters that came before and keep it into an array
-    $pastLetters = array();
-    $alphabetArray = str_split($alphabet);
-    for ($counter = 0; $counter < $letterPositon - 1; $counter++) { 
-        $pastLetters[$counter] = $alphabetArray[$counter];
-    }
-
-    // OK: Copy the array above, but invert the letters => see ReverseString.php
-    $reversedPastLetters = array_reverse($pastLetters);
-
-    // OK: Mount an array => [pastLetters, letter, reversedPastLetters]
-    $result = array_merge((array)$pastLetters, (array)$letter, (array)$reversedPastLetters);
-    
-    foreach ($result as $value) {
-        echo $value . PHP_EOL;
-    }
+    // print_r($letters);
+    // die;
 
     // OK: Get the horizontal length of the diamond => (letterPosition * 2) - 1
-    $horizontalLength = ($letterPositon * 2) - 1;
+    $horizontalLength = (array_search($letter, $letters) + 1) * 2 - 1;
+    // var_dump($horizontalLength);
+    // die;
 
-    // See how to make blank spaces (??)
-    // $blankSpaces = array();
-    // $blankSpaces = explode(" ", $horizontalLength);
-    
-    
+    $insideSpace = 1;
+    foreach ($letters as $value) {
+        if ($value === 'A'){
+            $diamond[] = str_pad($value, $horizontalLength, '-', STR_PAD_BOTH);
+            continue; //Breaks one iteration of the loop
+        }
+        $diamond[] = str_pad($value . str_repeat('-', $insideSpace) . $value, $horizontalLength, '-', STR_PAD_BOTH);
+        $insideSpace += 2;
+    }
 
-    
+    $finalDiamond = array_merge($diamond, array_slice(array_reverse($diamond), 1));
+    return $finalDiamond;
+}
 
-    // return $blankSpaces;
+$variable = buildDiamond("l");
+
+foreach ($variable as $value) {
+    echo $value . PHP_EOL;
 }
 
 
-echo buildDiamond("e") . PHP_EOL;
+// -----------Another way. Duplicating the initial letters array
+function diamond(string $input)
+{
+    $range = range('A', strtoupper($input)); //Array
 
+    $padding = (ord(end($range)) - ord(reset($range))) * 2 + 1; //Int 5
 
+    $space = 1;
+    foreach ($range as $letter) {
+        if ($letter === 'A') {
+            $result[] = str_pad($letter, $padding, '-', STR_PAD_BOTH);
 
-// $conj = array(" A ","B B"," A ");
+        } else {
+            $result[] = str_pad($letter . str_repeat('-', $space) . $letter, $padding, '-', STR_PAD_BOTH);
+            $space += 2;
+        }
+    }
 
-// for ($i=0; $i < sizeof($conj); $i++) { 
-//     echo $conj[$i] . PHP_EOL;
-// }
-    
-
+    return array_merge(
+        $result,
+        array_slice(array_reverse($result), 1)
+    );
+}
