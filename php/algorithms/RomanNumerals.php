@@ -12,57 +12,24 @@ function transcribeToRomanNumerals(int $inputNumber)
         'M' => 1000
     ];
 
+    foreach ($numbers as $n) {
+        if($inputNumber == $n){
+            echo implode((array_keys($numbers, $inputNumber))) . PHP_EOL;
+        }
+    }
+
     echo "The input number is {$inputNumber}" . PHP_EOL;
 
-    // for ($contador = 0; $contador < sizeof(NUMBERS); $contador++) {
-    //     if(array_key_first())
-    // }
-
-    $value = 10;
-    // var_dump(array_search($value, $numbers, true));
-    // die;
-
-    var_dump(array_search($value, $numbers));die;
-
-
-    // foreach(NUMBERS as $value){
-    //     if (key() != $inputNumber) continue;
-    // }
-
-
-    echo key(NUMBERS);
-
-    // if (key_exists($inputNumber, NUMBERS)){
-    //     echo "{$inputNumber} in Roman Numerals is " . key(NUMBERS) . PHP_EOL;
-    //     // echo "The key exists!";
-    // }
-
-    // foreach (NUMBERS as $value){
-    //     if (!key_exists($inputNumber, NUMBERS)){
-    //         continue;
-    //     }
-
-    //     echo "{$inputNumber} in Roman Numerals is {$value}" . PHP_EOL;
-    // }
-
-
-    // foreach (NUMBERS as $value) {
-    //     if (key($value) === $inputNumber){
-    //         echo "{$inputNumber} in Roman Numerals is " . key($value);
-    //     }
-    // }
-
-    echo "Teste";
-
-    // if (array_key_exists($inputNumber, NUMBERS)){
-    //     echo "{$inputNumber} in Roman Numerals is  ";
-    // }
-
-    // foreach (NUMBERS as $number) {
-    //     echo $number . PHP_EOL;
-    // }
 
     return;
 }
 
-transcribeToRomanNumerals(50);
+transcribeToRomanNumerals(49); // 1024 => MXXIV
+                               // 1023 => MXXIII
+
+                               // =============
+                               // 1 - 3 => I
+                               //   4   => IV
+                               // 6 - 8 => I
+                               //   9   => IX
+                               // =============
