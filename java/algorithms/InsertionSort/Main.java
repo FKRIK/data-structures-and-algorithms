@@ -9,7 +9,7 @@ public class Main
         generateRandomArray(arrayNumeros);
 
         System.out.println("Insertion Sort: ");
-        insertionSort(arrayNumeros);
+        insertionSortFor(arrayNumeros);
     }
     
     public static void generateRandomArray(int[] array)
@@ -23,7 +23,7 @@ public class Main
         System.out.print("] \n");
     }
     
-    public static void insertionSort(int[] array)
+    public static void insertionSortFor(int[] array)
     {
         int temp;
 
@@ -38,6 +38,31 @@ public class Main
                     array[j] = temp;
                 }
             }
+        }
+        
+        System.out.print("[");
+        for(int i : array)
+        {
+            System.out.print(" " + i + " ");    
+        }
+        System.out.print("] \n");
+    }
+
+    public static void insertionSortDoWhile(int[] array)
+    {
+        int temp, j;
+        
+        for (int i = 1; i < array.length; i++)
+        {
+            temp = array[i];
+            j = i - 1;
+            
+            while(j >= 0 && temp < array[j])
+            {
+                array[j + 1] = array[j];
+                j--;
+            }
+            array[j + 1] = temp;
         }
         
         System.out.print("[");
