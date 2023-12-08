@@ -1,26 +1,26 @@
 local functions = {}
-Dishes = { 'Pizza', 'Burguer', 'Ramen', 'Paella', 'Pierogui', 'Moussaka' }
+Dishes = {'Pizza', 'Burguer', 'Ramen', 'Paella', 'Pierogui', 'Moussaka'}
 
 function functions.AppRun()
-    A = functions.ShowInitialMenu()
-    functions.VerifyChoice(A)
+    A = ShowInitialMenu()
+    VerifyChoice(A)
 end
 
-function functions.ShowInitialMenu()
+function ShowInitialMenu()
     local title = 'Welcome to home!'
     local question = 'What you wish to do? '
     print(title)
-    print(functions.ShowOptions())
-    return functions.ReadInput(question)
+    print(ShowOptions())
+    return tonumber(ReadInput(question))
 end
 
-function functions.ReadInput(text)
+function ReadInput(text)
     io.write(text)
-    local chosenOption = tonumber(io.read())
+    local chosenOption = io.read()
     return chosenOption
 end
 
-function functions.ShowOptions()
+function ShowOptions()
     return [[
     1 - View menu;
     2 - Register a dish;
@@ -28,7 +28,7 @@ function functions.ShowOptions()
     ]]
 end
 
-function functions.VerifyChoice(chosenOpt)
+function VerifyChoice(chosenOpt)
     local choice = {
         [1] = function() Option01() end,
         [2] = function() Option02() end,
@@ -48,21 +48,33 @@ function Option01()
 end
 
 function Option02()
-    io.write('Type it here: ')
-    local newDish = io.read()
+    local newDish = ReadInput('Type it here: ')
     table.insert(Dishes, newDish)
     PrintDishes()
 end
 
 function InvalidOption()
     print('Opção inválida. Esolha novamente!')
-    local value = functions.ShowInitialMenu()
-    functions.VerifyChoice(value)
+    local value = ShowInitialMenu()
+    VerifyChoice(value)
 end
 
 function PrintDishes()
-    for _, dishName in ipairs(Dishes) do
-        print(_ .. '. ' .. dishName)
+    for _, dishName in ipairs(Dishes) do print(_ .. '. ' .. dishName) end
+end
+
+function AskGoBack()
+    local answer = ReadInput('Want to go back to the menu? [y/n]')
+    local decision = {
+        ['y'] = function() ShowInitialMenu() end,
+        ['n'] = function() os.exit() end,
+        default = function() end
+    }
+
+    if decision[answer] then
+        decision[answer]()
+    else
+        decision['default']()
     end
 end
 
